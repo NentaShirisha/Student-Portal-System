@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers Login - Student Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-blue: #007bff;
+            --dark-blue: #0056b3;
+            --accent-green: #28a745;
+            --accent-red: #dc3545;
+            --accent-yellow: #ffc107;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #343a40;
+            --text-color: #495057;
+            --white: #ffffff;
+        }
+
+        body {
+            /* Background with a subtle gradient */
+            background: linear-gradient(135deg, #f0f2f5 0%, #e0e7ed 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif; /* Modern, clean font */
+            line-height: 1.7; /* Improved line spacing for readability */
+            padding-top: 70px; /* Space for fixed navbar */
+        }
+
+        .main {
+            background-color: var(--white); /* Pure white background for content */
+            padding: 40px; /* Increased padding for more breathing room */
+            border-radius: 12px; /* Softer rounded corners */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Deeper shadow for prominence */
+            flex: 1;
+            max-width: 1000px; /* Slightly wider content area */
+            margin: 30px auto; /* Centered with top/bottom margin */
+            animation: fadeIn 0.8s ease-out; /* Fade-in animation for main content */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: var(--dark-blue) !important; /* Dark blue navbar background */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Shadow for navbar */
+            padding-top: 0.8rem;
+            padding-bottom: 0.8rem;
+            position: fixed; /* Fixed at the top */
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Ensure it stays on top */
+        }
+
+        .navbar-brand {
+            color: var(--white) !important; /* White text for brand */
+            font-family: 'Roboto', sans-serif; /* Strong font for the title */
+            font-weight: 700;
+            font-size: 1.8rem; /* Larger font size for brand */
+            transition: color 0.3s ease;
+        }
+        .navbar-brand:hover {
+            color: var(--light-gray) !important;
+        }
+
+        .navbar-brand small {
+            font-size: 0.8rem;
+            display: block;
+            margin-top: 2px;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .nav-link {
+            color: var(--light-gray) !important; /* Light gray text for nav links */
+            transition: all 0.3s ease; /* Smooth transition for all properties */
+            padding: 10px 18px; /* More padding for clickable area */
+            border-radius: 25px; /* Pill-shaped buttons */
+            margin: 0 8px; /* Space between buttons */
+            font-weight: 500;
+            text-align: center;
+            border: 1px solid transparent; /* Subtle border for hover effect */
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--white) !important; /* White text on hover */
+            background-color: rgba(255,255,255,0.15); /* Semi-transparent white background on hover */
+            border-color: var(--white); /* White border on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        /* Specific button colors for navigation */
+        .nav-item:nth-child(1) .nav-link { /* Home */
+            background-color: var(--primary-blue); /* Distinct blue for Home */
+            border-color: var(--primary-blue);
+        }
+        .nav-item:nth-child(1) .nav-link:hover {
+            background-color: var(--dark-blue);
+            border-color: var(--dark-blue);
+        }
+
+        .nav-item:nth-child(2) .nav-link { /* Admin Login */
+            background-color: var(--accent-red); /* Red for Admin */
+            border-color: var(--accent-red);
+        }
+        .nav-item:nth-child(2) .nav-link:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+        }
+        .nav-item:nth-child(3) .nav-link { /* Teachers Account Login */
+            background-color: var(--accent-yellow); /* Yellow/Orange for Teachers */
+            color: var(--dark-gray) !important; /* Dark text for contrast */
+            border-color: var(--accent-yellow);
+        }
+        .nav-item:nth-child(3) .nav-link:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+        .nav-item:nth-child(4) .nav-link { /* Student Account Login */
+            background-color: var(--accent-green); /* Green for Students */
+            border-color: var(--accent-green);
+        }
+        .nav-item:nth-child(4) .nav-link:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+
+        /* Form specific styles */
+        .login-card {
+            background-color: var(--light-gray);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            max-width: 450px; /* Limit form width */
+            margin: 40px auto; /* Center the form */
+        }
+        .login-card h2 {
+            color: var(--dark-blue);
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+        .form-control {
+            border-radius: 8px;
+            padding: 10px 15px;
+            border: 1px solid var(--medium-gray);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+        }
+        .btn-submit {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 25px; /* Pill-shaped button */
+            border: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%; /* Full width button */
+            margin-top: 20px;
+        }
+        .btn-submit:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-2px);
+        }
+        .error-message {
+            color: var(--accent-red);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 0;
+            margin-top: auto;
+            width: 100%;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+        }
+        .footer p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+    </style>
+
+    <script language="javascript">
+        function validate(formObj) {
+            if(formObj.t1.value.length === 0) {
+                alert("Please Enter Username");
+                formObj.t1.focus();
+                return false;
+            }
+            if(formObj.t2.value.length === 0) {
+                alert("Please Enter Password");
+                formObj.t2.focus();
+                return false;
+            }
+            // formObj.actionUpdateData.value="update"; // This line seems to be for a different context, not typically needed for a simple login
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                Student Portal
+                <small>Empowering Education Through Data</small>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'AdminLogin' %}">Admin Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'FacultyLogin' %}">Teachers Account Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'StudentLogin' %}">Student Account Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main container">
+        <div class="content">
+            <div class="login-card">
+                <h2>Teachers Login Screen</h2>
+                {% if data %}
+                    <p class="error-message">{{ data }}</p>
+                {% endif %}
+                <form name="f1" method="post" action="{% url 'FacultyLoginAction' %}" onsubmit="return validate(this);">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="usernameInput" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="usernameInput" name="t1" size="25">
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordInput" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="passwordInput" name="t2" size="25">
+                    </div>
+                    <button type="submit" class="btn btn-submit">Login</button>
+                </form>
+            </div>
+        </div></div><footer class="footer">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Student Portal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eCEbFZvPZIMp" crossorigin="anonymous"></script>
+</body>
+</html>
